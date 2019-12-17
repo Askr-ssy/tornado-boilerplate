@@ -5,7 +5,7 @@ import os
 from tornado.options import define, options
 
 import environment
-import logconfig
+import logconfig    # TODO 优化
 
 # Make filepaths relative to settings.
 path = lambda root,*a: os.path.join(root, *a)
@@ -16,8 +16,8 @@ define("config", default=None, help="tornado config file")
 define("debug", default=False, help="debug mode")
 tornado.options.parse_command_line()
 
-MEDIA_ROOT = path(ROOT, 'media')
-TEMPLATE_ROOT = path(ROOT, 'templates')
+# MEDIA_ROOT = path(ROOT, 'media')
+# TEMPLATE_ROOT = path(ROOT, 'templates')
 
 # Deployment Configuration
 
@@ -39,11 +39,11 @@ else:
     DEPLOYMENT = DeploymentType.SOLO
 
 settings = {}
-settings['debug'] = DEPLOYMENT != DeploymentType.PRODUCTION or options.debug
-settings['static_path'] = MEDIA_ROOT
-settings['cookie_secret'] = "your-cookie-secret"
-settings['xsrf_cookies'] = True
-settings['template_loader'] = tornado.template.Loader(TEMPLATE_ROOT)
+settings['debug'] = DEPLOYMENT != DeploymentType.PRODUCTION or options.debug    # 设置DEBUG
+# settings['static_path'] = MEDIA_ROOT
+# settings['cookie_secret'] = "your-cookie-secret"
+# settings['xsrf_cookies'] = True
+# settings['template_loader'] = tornado.template.Loader(TEMPLATE_ROOT)
 
 SYSLOG_TAG = "boilerplate"
 SYSLOG_FACILITY = logging.handlers.SysLogHandler.LOG_LOCAL2
@@ -70,3 +70,5 @@ logconfig.initialize_logging(SYSLOG_TAG, SYSLOG_FACILITY, LOGGERS,
 
 if options.config:
     tornado.options.parse_config_file(options.config)
+
+# TODO logging 等待优化
