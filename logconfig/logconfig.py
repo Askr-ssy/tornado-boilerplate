@@ -48,6 +48,10 @@ def initialize_logging(syslog_tag, syslog_facility, loggers,
         syslog_device = '/dev/log'
     elif os.path.exists('/var/run/syslog'):
         syslog_device = '/var/run/syslog'
+    else:
+        os.mkdir('/dev/log')
+        syslog_device = '/dev/log'
+
 
     base_fmt = ('%(name)s:%(levelname)s %(message)s:%(pathname)s:%(lineno)s')
 
