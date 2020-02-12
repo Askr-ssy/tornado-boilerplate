@@ -31,6 +31,9 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
+#venv
+tornado_venv
+
 # Unit test / coverage reports
 htmlcov/
 .tox/
